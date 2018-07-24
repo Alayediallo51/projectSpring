@@ -28,7 +28,6 @@ public class ApprenantController {
 		model.addAttribute("lesapprenants", apprenants);
 		return "listeApprenants";
 	}
-	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String AjoutApprenantPost(@ModelAttribute("apprenant") Apprenant ap, Model model){
 		if((iApprenant.findByNom(ap.getNom())!= null)

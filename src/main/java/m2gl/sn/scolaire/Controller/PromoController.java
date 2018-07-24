@@ -18,7 +18,7 @@ public class PromoController {
 	@RequestMapping(value="/add")
 	public String AjoutPromo(Model model){
 		Promo promo = new Promo();
-		model.addAttribute("promos",promo);
+		model.addAttribute("promos",promo);		
 		return "promo";
 	}
 	

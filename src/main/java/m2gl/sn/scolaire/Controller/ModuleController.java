@@ -1,7 +1,9 @@
 package m2gl.sn.scolaire.Controller;
 
+import m2gl.sn.scolaire.models.Enseignant;
 import m2gl.sn.scolaire.models.Module;
 import m2gl.sn.scolaire.models.Promo;
+import m2gl.sn.scolaire.services.IEnseignant;
 import m2gl.sn.scolaire.services.IModule;
 import m2gl.sn.scolaire.services.IPromotion;
 
@@ -17,10 +19,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ModuleController {
 	@Autowired
 	private IModule iModule;
+//	@Autowired
+//	private IPromotion iEnseignant;
+	@Autowired
+	private IEnseignant iEnseignant;
 	@RequestMapping(value="/add")
 	public String AjoutModule(Model model){
 		Module module = new Module();
+		module.setEnseignant(new Enseignant());
 		model.addAttribute("module",module);
+		Iterable<Enseignant> pro = iEnseignant.findAll();
+		model.addAttribute("lesensei", pro);
 		return "module";
 	}
 	
