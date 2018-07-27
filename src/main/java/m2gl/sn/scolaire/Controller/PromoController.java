@@ -1,5 +1,7 @@
 package m2gl.sn.scolaire.Controller;
 
+import java.text.SimpleDateFormat;
+
 import m2gl.sn.scolaire.models.Promo;
 import m2gl.sn.scolaire.services.IPromotion;
 
@@ -26,16 +28,19 @@ public class PromoController {
 	public String ListePromo(Model model){
 		Iterable<Promo> pro = iPromo.findAll();
 		model.addAttribute("lesPromo", pro);
+		Promo promo = new Promo();
+		model.addAttribute("promos",promo);		
 		return "listePromo";
 	}
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String AjoutPromoPost(@ModelAttribute("promos") Promo promo, Model model){
-		if((iPromo.findByPromo(promo.getPromo())!= null)
+		if((iPromo.findByDateDebut(promo.getDateDebut())!= null)
 				){
 			model.addAttribute("message","cette promotion existe déja !!!");
 			return "promo";
 		}
+		promo.setPromo(new SimpleDateFormat("MM/yyyy").format(promo.getDateDebut())+" -- "+new SimpleDateFormat("MM/yyyy").format(promo.getDateFin()));
 		iPromo.save(promo);
 		Iterable<Promo> pro = iPromo.findAll();
 		model.addAttribute("lesPromo", pro);

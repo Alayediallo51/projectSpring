@@ -3,6 +3,10 @@
   border-color: #080808;
   margin: 0px;
 }
+.fluide{
+	margin: 0;
+	padding: 0px
+}
 .bs-dark .navbar-img {padding:5px 6px !important;}
 .bs-dark .navbar-img img {width:40px;}
 .bs-dark .dropdown-menu {

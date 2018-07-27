@@ -1,5 +1,6 @@
 package m2gl.sn.scolaire.models;
 
+
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -16,11 +17,18 @@ public class Apprenant {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	public Date getDateNaiss() {
+		return dateNaiss;
+	}
+	public void setDateNaiss(Date dateNaiss) {
+		this.dateNaiss = dateNaiss;
+	}
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateNaiss;
+	
 	private String nom;
 	private String prenom;
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	private Date dateNaissance;
 	private String email;
 	private String tel;
 	public int getId() {
@@ -46,12 +54,6 @@ public class Apprenant {
 	}
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
-	}
-	public Date getDateNaissance() {
-		return dateNaissance;
-	}
-	public void setDateNaissance(Date dateNaissance) {
-		this.dateNaissance = dateNaissance;
 	}
 	public String getTel() {
 		return tel;

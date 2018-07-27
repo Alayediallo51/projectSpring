@@ -16,14 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ApprenantController {
 	@Autowired
 	private IApprenant iApprenant;
-	@RequestMapping(value="/add")
-	public String AjoutApprenant(Model model){
-		Apprenant ap = new Apprenant();
-		model.addAttribute("apprenant",ap);
-		return "apprenant";
-	}
 	@RequestMapping(value="/liste")
 	public String ListeApprenant(Model model){
+		Apprenant app= new Apprenant();
+		model.addAttribute("apprenant",app);
 		Iterable<Apprenant> apprenants = iApprenant.findAll();
 		model.addAttribute("lesapprenants", apprenants);
 		return "listeApprenants";

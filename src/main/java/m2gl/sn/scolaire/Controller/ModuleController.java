@@ -37,6 +37,13 @@ public class ModuleController {
 	public String ListeModules(Model model){
 		Iterable<Module> mod = iModule.findAll();
 		model.addAttribute("lesModules", mod);
+		
+		Module module = new Module();
+		module.setEnseignant(new Enseignant());
+		model.addAttribute("module",module);
+		Iterable<Enseignant> pro = iEnseignant.findAll();
+		model.addAttribute("lesensei", pro);
+		
 		return "listeModules";
 	}
 	
