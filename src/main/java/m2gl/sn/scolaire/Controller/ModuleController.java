@@ -1,5 +1,8 @@
 package m2gl.sn.scolaire.Controller;
 
+import java.util.Optional;
+
+import m2gl.sn.scolaire.models.Apprenant;
 import m2gl.sn.scolaire.models.Enseignant;
 import m2gl.sn.scolaire.models.Module;
 import m2gl.sn.scolaire.models.Promo;
@@ -13,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value="/module")
@@ -49,7 +53,7 @@ public class ModuleController {
 	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String AjoutModulePost(@ModelAttribute("module") Module mod, Model model){
-		if((iModule.findByNomModule(mod.getNomModule())!= null)
+		if(mod.getId()==0 &&(iModule.findByNomModule(mod.getNomModule())!= null)
 				){
 			model.addAttribute("message","ce module existe déja !!!");
 			return "module";
@@ -59,6 +63,34 @@ public class ModuleController {
 		model.addAttribute("lesModules", modu);
 		
 		return "redirect:liste";
+	}
+	
+	@RequestMapping(value="/remove")
+	public String removeModule(Model model, String id){
+		Optional<Module> ap = iModule.findById(Integer.parseInt(id));
+		if(ap.isPresent()){
+			iModule.delete(ap.get());
+		}
+		Iterable<Module> modules = iModule.findAll();
+		model.addAttribute("lesModules", modules);
+		return "redirect:liste";
+	}
+	
+	@RequestMapping(value="/edit")
+	public String editModule(@RequestParam("id") String id,Model model){
+		
+		Optional<Module> ap = iModule.findById(Integer.parseInt(id));
+		if(ap.isPresent()){
+			Iterable<Enseignant> pro = iEnseignant.findAll();
+			model.addAttribute("lesensei", pro);
+			model.addAttribute("module", ap.get());
+			return "modifModule";
+		}
+		else{
+			Iterable<Module> modules = iModule.findAll();
+			model.addAttribute("lesModules", modules);
+			return "listeModules";
+		}
 	}
 
 }

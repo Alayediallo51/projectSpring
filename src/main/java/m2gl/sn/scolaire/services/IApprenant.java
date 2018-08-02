@@ -12,7 +12,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface IApprenant extends CrudRepository<Apprenant, Integer>{
-	public Apprenant findByNom(String nom);
-	public Apprenant findByPrenom(String prenom);
+	public Apprenant findByMatricule(String mat);
 
 }

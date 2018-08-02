@@ -1,5 +1,7 @@
 package m2gl.sn.scolaire.Controller;
 
+import java.util.Optional;
+
 import m2gl.sn.scolaire.models.Apprenant;
 import m2gl.sn.scolaire.models.Enseignant;
 import m2gl.sn.scolaire.models.Evaluation;
@@ -17,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class EvaluationController {
@@ -85,4 +88,28 @@ public class EvaluationController {
 		return "redirect:/evaluation/liste";
 	}
 
+	@RequestMapping(value="/remove")
+	public String removeEvaluation(Model model, String id){
+		Optional<Evaluation> ap = iEvaluation.findById(Integer.parseInt(id));
+		if(ap.isPresent()){
+			iEvaluation.delete(ap.get());
+		}
+		Iterable<Evaluation> evaluations = iEvaluation.findAll();
+		model.addAttribute("lesevaluations", evaluations);
+		return "redirect:liste";
+	}
+	
+	@RequestMapping(value="/edit")
+	public String editEvaluation(@RequestParam("id") String id,Model model){
+		Optional<Evaluation> ap = iEvaluation.findById(Integer.parseInt(id));
+		if(ap.isPresent()){
+			model.addAttribute("DonneEvaluation", ap.get());
+			return "modifEvaluation";
+		}
+		else{
+			Iterable<Evaluation> evaluations = iEvaluation.findAll();
+			model.addAttribute("lesEvaluations", evaluations);
+			return "listeApprenants";
+		}
+	}
 }

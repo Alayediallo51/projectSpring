@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="/bootstrap/css/dataTables.bootstrap.min.css" />
+<link rel="stylesheet" href="/css/styleNavbar.css" />
+</head>
+<body>
+	<div class="container-fluid"
+		style="padding-right: 0px; padding-left: 0px; overflow: hidden">
+		<header style="height:20px;"></header>
+		<!------------- Navbar -------------->
+		<nav class="navbar navbar-inverse bs-dark navb">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"> <img
+				src="/images/logoEcole.png" class="img-circle" alt="Image logo"
+				width="8%" style="margin-top: -1.5%" />
+			</a>
+		</div>
+
+		<div class="collapse navbar-collapse"
+			id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a th:href="@{/enseignant/liste}">Enseignants <span
+						class="sr-only">(current)</span>
+				</a></li>
+				<li><a th:href="@{/apprenant/liste}">Apprenants
+				</a></li>
+				<li><a th:href="@{/module/liste}">Modules </a></li>
+				<li><a th:href="@{/promo/liste}">Promotions </a></li>
+				<li class="active"><a th:href="@{/evaluation/liste}">Evaluations </a></li>
+
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown"><a href="#"
+					class="dropdown-toggle navbar-img" data-toggle="dropdown"
+					role="button" aria-haspopup="true" aria-expanded="false"> <img
+						src="/images/icon.jpg" class="img-circle" alt="Profile Image" />
+				</a></li>
+			</ul>
+			<form class="navbar-form navbar-right form-horizontal " role="search">
+				<div class="input-group">
+					<input type="text" class="search-box titre" placeholder="Search"
+						id="myInput">
+						<button class="btn disabled">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+				</div>
+			</form>
+		</div>
+		</nav>
+
+
+		<div class="col-push-lg-12 text-center ">
+			<h1>
+				<u>Gestion Des Apprenants </u>
+			</h1>
+		</div>
+		<!-- 		ajout delement -->
+		<div class="row AjoutEnseignant">
+			<div
+				class="col-md-push-1 col-sm-1 col-xs-1 col-lg-push-1 col-lg-10 col-xs-10 col-md-10 col-sm-10 well"
+				style="margin-top: 4%">
+<!-- 				<form class="form-horizontal" method="POST" -->
+<!-- 					th:action="@{/evaluation/add}" th:object="${DonneEvaluation}"> -->
+<!-- 					<fieldset> -->
+
+<!-- 						Form Name -->
+<!-- 						<legend>Form Name</legend> -->
+
+<!-- 						Text input -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-md-4 control-label" for="textinput">Note</label> -->
+<!-- 							<div class="col-md-5"> -->
+<!-- 								<input id="textinput" name="textinput" type="text" -->
+<!-- 									placeholder="17" class="form-control input-md" th:field="*{note}"> -->
+<!-- 									<input type="hidden" name="idMed" th:field="*{id}" /> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 						Select Basic -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-md-4 control-label" for="selectbasic">Modules</label> -->
+<!-- 							<div class="col-md-5"> -->
+<!-- 								<select id="selectbasic" name="selectbasic" class="form-control" th:field="*{module}"> -->
+<!-- 									<option value="">selectionnez</option> -->
+<!-- 									<option th:each="m:${lesModules}" th:value="${m.id}" -->
+<!-- 										th:text="${m.nomModule}"></option> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 						Select Basic -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-md-4 control-label" for="selectbasic">Apprenant</label> -->
+<!-- 							<div class="col-md-5"> -->
+<!-- 								<select id="selectbasic" name="selectbasic" class="form-control" th:field="*{apprenant}"> -->
+<!-- 									<option value="1">Selectionnez</option> -->
+<!-- 									<option th:each="a:${apprenants}" th:value="${a.id}" -->
+<!-- 										th:text="${a.prenom +' '+a.nom} "></option> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 						Select Basic -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-md-4 control-label" for="selectbasic">Promotion</label> -->
+<!-- 							<div class="col-md-5"> -->
+<!-- 								<select id="selectbasic" name="selectbasic" class="form-control" th:field="*{promo}"> -->
+<!-- 									<option value="1">Selectionnez</option> -->
+<!-- 									<option  th:each="p:${promos}" th:value="${p.id}" -->
+<!-- 										th:text="${p.promo}"></option> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 						Button (Double) -->
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-md-4 control-label" for="button1id"></label> -->
+<!-- 							<div class="col-md-8"> -->
+<!-- 								<button type="submit" class="btn btn-success">Valider</button> -->
+<!-- 								<button class="btn btn-danger" type="button" onclick="annuler()">Annuler</button> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 					</fieldset> -->
+<!-- 				</form> -->
+			</div>
+		</div>
+
+
+	</div>
+
+
+	<div style="margin-top: 100px" class="footer">
+		<footer class="footer-bs">
+		<div class="row">
+			<div class="col-md-3 footer-ns animated fadeInRight">
+				<p>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for..."> <span
+							class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-envelope"></span>
+								</button>
+						</span>
+					</div>
+<!-- 					input-group -->
+				</p>
+			</div>
+			<div class="col-md-4 footer-nav animated fadeInUp">
+				<h4>Menu —</h4>
+				<div class="col-md-6">
+					<ul class="pages">
+						<li><a href="#">Enseignants</a></li>
+						<li><a href="#">Apprenants</a></li>
+						<li><a href="#">Modules</a></li>
+					</ul>
+				</div>
+				<div class="col-md-6">
+					<ul class="pages">
+						<li><a href="#">Promotions</a></li>
+						<li><a href="#">Evaluations</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-2 footer-social animated fadeInDown">
+				<h4>Follow Us</h4>
+				<ul>
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Instagram</a></li>
+					<li><a href="#">RSS</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-brand animated fadeInLeft">
+				<h2>
+					<img src="/images/logoEcole.png" class="img-circle"
+						alt="Image logo" width="35%" style="margin-top: -1.5%" />
+				</h2>
+				<p>Devise: "Des ténèbres vers la lumière"</p>
+				<p>Bakk: Génn Ci lëndëm tàbbi Ci leer</p>
+			</div>
+		</div>
+		</footer>
+	</div>
+	</div>
+	<script src="/bootstrap/js/jquery-3.3.1.js"></script>
+	<script src="/bootstrap/js/bootstrap.js"></script>
+	<script src="/bootstrap/js/jquery.dataTables.min.js"></script>
+	<script src="/bootstrap/js/dataTables.bootstrap.min.js"></script>
+	<script>
+   $(document).ready(function() {
+       $('#example').DataTable( {
+       	"paging": false, 
+                    } );
+       $(".dataTables_filter").hide();
+    var table = $('#example').DataTable();
+    $('#myInput').on( 'keyup', function () {
+   	 table.search($(this).val()).draw() ;
+    } );	    
+ } );
+
+   function ajout(){
+   	  $('#liste').hide('slow');
+   	  $('.add').hide('slow');
+   	  $('.AjoutEnseignant').show('slow');
+   	  $('.titre').hide('slow');
+   	  $('.footer').css('margin-top','100px');
+    }
+
+   function annuler(){
+   	  $('#liste').show('slow');
+   	  $('.add').show('slow');
+   	  $('.AjoutEnseignant').hide('slow');
+      $('.titre').show('slow');
+      $('.footer').css('margin-top','350px');
+    }
+  
+  </script>
+</body>
+</html>

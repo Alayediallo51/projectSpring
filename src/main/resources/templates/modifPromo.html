@@ -4,13 +4,12 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>School'Udb</title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="/bootstrap/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="/css/styleNavbar.css" />
 </head>
-
 <body>
 	<div class="container-fluid"
 		style="padding-right: 0px; padding-left: 0px; overflow: hidden">
@@ -37,10 +36,10 @@
 				<li><a th:href="@{/enseignant/liste}">Enseignants <span
 						class="sr-only">(current)</span>
 				</a></li>
-				<li><a th:href="@{/apprenant/liste}">Apprenants </a></li>
-				<li><a th:href="@{/module/liste}">Modules </a></li>
-				<li class="active"><a th:href="@{/promo/liste}">Promotions
+				<li><a th:href="@{/apprenant/liste}">Apprenants
 				</a></li>
+				<li><a th:href="@{/module/liste}">Modules </a></li>
+				<li class="active"><a th:href="@{/promo/liste}">Promotions </a></li>
 				<li><a th:href="@{/evaluation/liste}">Evaluations </a></li>
 
 			</ul>
@@ -62,18 +61,19 @@
 			</form>
 		</div>
 		</nav>
-		<div class="col-push-lg-12 text-center">
+
+
+		<div class="col-push-lg-12 text-center ">
 			<h1>
-				<u>Gestion Des Promotions </u>
+				<u>Gestion Des Apprenants </u>
 			</h1>
 		</div>
-
 		<!-- 		ajout delement -->
-		<div class="row AjoutEnseignant" style="display: none;">
+		<div class="row AjoutEnseignant">
 			<div
-				class="col-md-push-3 col-sm-3 col-xs-3 col-lg-push-3 col-lg-6 col-xs-6 col-md-6 col-sm-6 well"
+				class="col-md-push-1 col-sm-1 col-xs-1 col-lg-push-1 col-lg-10 col-xs-10 col-md-10 col-sm-10 well"
 				style="margin-top: 4%">
-				<form action="" class="form-inline center" method="POST"
+					<form action="" class="form-inline center" method="POST"
 					th:action="@{/promo/add}" th:object="${promos}">
 					<div class="form-group" style="margin-left: 30px;">
 						<label for="promo">&nbsp;&nbsp; Date debut :</label> <input
@@ -84,6 +84,8 @@
 						<label for="promo">Date Fin :</label> <input
 							type="date" class="form-control" id="libelle" th:field="*{dateFin}"
 							>
+							<input type="hidden"
+									name="idMed" th:field="*{id}" />
 					</div>
 					<div class="form-group" style="margin-left: 50px;">
 						<input type="button" onclick="annuler()" class="btn btn-danger form-control"
@@ -98,109 +100,62 @@
 		</div>
 
 
-		<!-- la liste des element -->
+	</div>
+
+
+	<div style="margin-top: 100px" class="footer">
+		<footer class="footer-bs">
 		<div class="row">
-			<div style="height: 10px; background: white"></div>
-			<div
-				class="col-md-1 col-sm-1 col-lg-1 col-xs-1 col-md-push-11 col-lg-push-11">
-				<a class="btn icon-btn btn-success add" href="#" onclick="ajout()">
-					<span
-					class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
-					Add
-				</a>
-			</div>
-		</div>
-		<div style="height: 30px; background: white"></div>
-		<div class="col-md-12 col-lg-12 col-sm-12 well" id="liste">
-			<div class="col-md-push-2 col-md-8 col-lg-push-2 col-lg-8"
-				>
-				<table id="example" class="table table-striped table-bordered"
-					style="width: 100%">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Date Début</th>
-							<th>Date Fin</th>
-							<th>Promotion</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="pro : ${lesPromo}" class="text-center">
-							<td th:text="${pro.id}"></td>
-							<td th:text="${pro.dateDebut}"></td>
-							<td th:text="${pro.dateFin}"></td>
-							<td th:text="${pro.promo}"></td>
-							<td class="text-center">
-								<button type="button" class="btn btn-success btn-xs">
-									<span class="glyphicon glyphicon-eye-open"></span>
+			<div class="col-md-3 footer-ns animated fadeInRight">
+				<p>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for..."> <span
+							class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-envelope"></span>
 								</button>
-								<a th:href="@{/promo/edit(id=${pro.id})}" class="btn btn-warning btn-xs">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</a>
-								<a th:href="@{/promo/remove(id=${pro.id})}"  onclick="return confirm('etes vous sur de vouloir supprimer cette selection ?')" class="btn btn-danger btn-xs">
-									<span 
-									 class="glyphicon glyphicon-remove-sign"></span>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+						</span>
+					</div>
+					<!-- /input-group -->
+				</p>
 			</div>
-		</div>
-		<div style="margin-top: 400px">
-			<footer class="footer-bs">
-			<div class="row">
-				<div class="col-md-3 footer-ns animated fadeInRight">
-					<p>
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search for..."> <span
-								class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<span class="glyphicon glyphicon-envelope"></span>
-									</button>
-							</span>
-						</div>
-						<!-- /input-group -->
-					</p>
-				</div>
-				<div class="col-md-4 footer-nav animated fadeInUp">
-					<h4>Menu —</h4>
-					<div class="col-md-6">
-						<ul class="pages">
-							<li><a href="#">Enseignants</a></li>
-							<li><a href="#">Apprenants</a></li>
-							<li><a href="#">Modules</a></li>
-						</ul>
-					</div>
-					<div class="col-md-6">
-						<ul class="pages">
-							<li><a href="#">Promotions</a></li>
-							<li><a href="#">Evaluations</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-2 footer-social animated fadeInDown">
-					<h4>Follow Us</h4>
-					<ul>
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Twitter</a></li>
-						<li><a href="#">Instagram</a></li>
-						<li><a href="#">RSS</a></li>
+			<div class="col-md-4 footer-nav animated fadeInUp">
+				<h4>Menu —</h4>
+				<div class="col-md-6">
+					<ul class="pages">
+						<li><a href="#">Enseignants</a></li>
+						<li><a href="#">Apprenants</a></li>
+						<li><a href="#">Modules</a></li>
 					</ul>
 				</div>
-				<div class="col-md-3 footer-brand animated fadeInLeft">
-					<h2>
-						<img src="/images/logoEcole.png" class="img-circle"
-							alt="Image logo" width="35%" style="margin-top: -1.5%" />
-					</h2>
-					<p>Devise: "Des ténèbres vers la lumière"</p>
-					<p>Bakk: Génn Ci lëndëm tàbbi Ci leer</p>
+				<div class="col-md-6">
+					<ul class="pages">
+						<li><a href="#">Promotions</a></li>
+						<li><a href="#">Evaluations</a></li>
+					</ul>
 				</div>
 			</div>
-			</footer>
+			<div class="col-md-2 footer-social animated fadeInDown">
+				<h4>Follow Us</h4>
+				<ul>
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Instagram</a></li>
+					<li><a href="#">RSS</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-brand animated fadeInLeft">
+				<h2>
+					<img src="/images/logoEcole.png" class="img-circle"
+						alt="Image logo" width="35%" style="margin-top: -1.5%" />
+				</h2>
+				<p>Devise: "Des ténèbres vers la lumière"</p>
+				<p>Bakk: Génn Ci lëndëm tàbbi Ci leer</p>
+			</div>
 		</div>
+		</footer>
+	</div>
 	</div>
 	<script src="/bootstrap/js/jquery-3.3.1.js"></script>
 	<script src="/bootstrap/js/bootstrap.js"></script>
@@ -223,7 +178,7 @@
    	  $('.add').hide('slow');
    	  $('.AjoutEnseignant').show('slow');
    	  $('.titre').hide('slow');
-      $('.footer').css('margin-top','50px');
+   	  $('.footer').css('margin-top','100px');
     }
 
    function annuler(){
@@ -237,5 +192,3 @@
   </script>
 </body>
 </html>
-
-

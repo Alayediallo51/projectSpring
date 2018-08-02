@@ -16,8 +16,8 @@
 		style="padding-right: 0px; padding-left: 0px; overflow: hidden">
 		<header style="height:20px;"></header>
 		<!------------- Navbar -------------->
-		<nav class="navbar navbar-inverse bs-dark navb">
-		<div class="navbar-header">
+		<nav class="navbar navbar-inverse bs-dark navb row">
+		<div class="navbar-header col-md-4 col-sm-4 col-lg-3 col-sx-4" >
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
 				aria-expanded="false">
@@ -30,8 +30,7 @@
 				width="8%" style="margin-top: -1.5%" />
 			</a>
 		</div>
-
-		<div class="collapse navbar-collapse"
+		<div class="collapse navbar-collapse col-lg-push-2 col-md-6 col-sm-6 col-lg-6 col-xs-8"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a th:href="@{/enseignant/liste}">Enseignants
@@ -50,7 +49,7 @@
 						src="/images/icon.jpg" class="img-circle" alt="Profile Image" />
 				</a></li>
 			</ul>
-			<form class="navbar-form navbar-right form-horizontal " role="search">
+			<form class="navbar-form navbar-right form-horizontal" role="search">
 				<div class="input-group">
 					<input type="text" class="search-box titre" placeholder="Search"
 						id="myInput">
@@ -79,23 +78,39 @@
 						<!-- Form Name -->
 						<legend class="text-center">Ajouter un enseignant</legend>
 						<!-- Appended Input-->
-						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Nom
+						<div class="form-group col-md-5 col-sm-5 col-xs-5 col-lg-5" >
+							<label class="control-label" for="appendedtext">Code Enseignant
+								:</label>
+							<div>
+								<div class="input-group">
+									<input id="appendedtext" name="appendedtext"
+										class="form-control" placeholder="ProfAlgo"
+										th:field="*{codeProf}" type="text">
+										<span
+										class="input-group-addon">Code Enseignant</span>
+								</div>
+
+							</div>
+						</div>
+						<div class="form-group col-md-5 col-sm-5 col-xs-5 col-lg-5">
+							<label class="control-label" for="appendedtext">Nom
 								Complet :</label>
-							<div class="col-md-4 col-xs-4">
+							<div>
 								<div class="input-group">
 									<input id="appendedtext" name="appendedtext"
 										class="form-control" placeholder="Veuillez saisir le nom"
 										th:field="*{nomComplet}" type="text">
+										<span
+										class="input-group-addon">Nom</span>
 								</div>
 
 							</div>
 						</div>
 						<!-- Appended Input-->
-						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Email
+						<div class="form-group col-md-5 col-sm-5 col-xs-5 col-lg-5">
+							<label class="control-label" for="appendedtext">Email
 								:</label>
-							<div class="col-md-4 col-xs-4">
+							<div>
 								<div class="input-group">
 									<input id="appendedtext" name="appendedtext"
 										th:field="*{email}" class="form-control"
@@ -106,10 +121,10 @@
 							</div>
 						</div>
 						<!-- Appended Input-->
-						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="tel">Tel
+						<div class="form-group col-md-5 col-sm-5 col-xs-5 col-lg-5">
+							<label class="control-label" for="tel">Tel
 								:</label>
-							<div class="col-md-4 col-xs-4">
+							<div>
 								<div class="input-group">
 									<input id="tel" name="tel" class="form-control"
 										th:field="*{tel}" placeholder="771245212" type="text">
@@ -119,9 +134,9 @@
 							</div>
 						</div>
 						<!-- Button (Double) -->
-						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="Valider"></label>
-							<div class="col-md-8 col-xs-8">
+						<div class="form-group col-md-5 col-sm-5 col-xs-5 col-lg-5">
+							<label class="control-label" for="Valider"></label>
+							<div>
 								<button id="Valider" name="Valider" class="btn btn-success">Valider</button>
 								<button type="reset" class="btn btn-danger" onclick="annuler()">Annuler</button>
 							</div>
@@ -148,10 +163,19 @@
 		<div style="height: 20px; background: white" class="titre"></div>
 		<div class="col-md-12 col-lg-12 col-sm-12 well" id="liste">
 			<div class="col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
+				<div class="alert alert-danger text-center" th:if="${not #lists.isEmpty(message)}">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>Failed!</strong> <label th:text="${message}"></label>
+				</div>
+				<div class="alert alert-success text-center" th:if="${not #lists.isEmpty(messageRe)}">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					<strong>Success!</strong> <label th:text="${messageRe}"></label>
+				</div>
 				<table id="example"
 					class="table table-striped table-bordered text-center">
 					<thead>
 						<tr class="text-center">
+						    <th>CODE ENSEIGNANT</th>
 							<th>NOM COMPLET</th>
 							<th>EMAIL</th>
 							<th>TEL</th>
@@ -160,16 +184,17 @@
 					</thead>
 					<tbody>
 						<tr th:each="ap : ${lesenseignants}">
+						    <td th:text="${ap.codeProf}"></td>
 							<td th:text="Mr+' '+${ap.nomComplet}"></td>
 							<td th:text="${ap.email}"></td>
 							<td th:text="${ap.tel}"></td>
 							<td class="text-center">
-								<button type="button" class="btn btn-warning btn-xs">
+								<a th:href="@{/enseignant/edit(id=${ap.id})}" class="btn btn-warning btn-xs">
 									<span class="glyphicon glyphicon-pencil"></span>
-								</button>
-								<button type="button" class="btn btn-danger btn-xs">
+								</a>
+								<a th:href="@{/enseignant/remove(id=${ap.id})}"  onclick="return confirm('etes vous sur de vouloir supprimer cette selection ?')" class="btn btn-danger btn-xs">
 									<span class="glyphicon glyphicon-remove-sign"></span>
-								</button>
+								</a>
 							</td>
 						</tr>
 					</tbody>

@@ -4,7 +4,7 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>School'Udb</title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="/bootstrap/css/dataTables.bootstrap.min.css" />
@@ -33,10 +33,10 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a th:href="@{/enseignant/liste}">Enseignants <span
+				<li class="active"><a th:href="@{/enseignant/liste}">Enseignants <span
 						class="sr-only">(current)</span>
 				</a></li>
-				<li class="active"><a th:href="@{/apprenant/liste}">Apprenants
+				<li><a th:href="@{/apprenant/liste}">Apprenants
 				</a></li>
 				<li><a th:href="@{/module/liste}">Modules </a></li>
 				<li><a th:href="@{/promo/liste}">Promotions </a></li>
@@ -62,87 +62,62 @@
 		</div>
 		</nav>
 
+
 		<div class="col-push-lg-12 text-center ">
 			<h1>
 				<u>Gestion Des Apprenants </u>
 			</h1>
 		</div>
 		<!-- 		ajout delement -->
-		<div class="row AjoutEnseignant" style="display: none;">
+		<div class="row AjoutEnseignant">
 			<div
 				class="col-md-push-1 col-sm-1 col-xs-1 col-lg-push-1 col-lg-10 col-xs-10 col-md-10 col-sm-10 well"
 				style="margin-top: 4%">
-				<form class="form-horizontal" th:object="${apprenant}" method="post"
-					th:action="@{/apprenant/add}">
+				<form class="form-horizontal" th:action="@{/enseignant/add}"
+					th:object="${enseignant}" method="post">
 					<fieldset>
 						<!-- Form Name -->
-						<legend class="text-center">Ajouter un apprenant</legend>
+						<legend class="text-center">Ajouter un enseignant</legend>
 						<!-- Appended Input-->
 						<div class="form-group">
-						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Matricule
+							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Code Enseignant
 								:</label>
 							<div class="col-md-4 col-xs-4">
 								<div class="input-group">
 									<input id="appendedtext" name="appendedtext"
-										th:field="*{matricule}" class="form-control"
-										placeholder="M2INFO01" type="text"> <span
-										class="input-group-addon">Matricule</span>
+										class="form-control" placeholder="ProfAlgo"
+										th:field="*{codeProf}" type="text">
+										<span
+										class="input-group-addon">Code Enseignant</span>
 								</div>
 
 							</div>
 						</div>
+						
+						<div class="form-group">
 							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Nom
-								:</label>
+								Complet :</label>
 							<div class="col-md-4 col-xs-4">
 								<div class="input-group">
 									<input id="appendedtext" name="appendedtext"
 										class="form-control" placeholder="Veuillez saisir le nom"
-										th:field="*{nom}" type="text"> 
-										<input type="hidden" name="idMed" th:field="*{id}" />
-										<span
-										class="input-group-addon">Nom</span>
+										th:field="*{nomComplet}" type="text">
+										 <input type="hidden"
+									name="idMed" th:field="*{id}" />
 								</div>
 
 							</div>
 						</div>
 						<!-- Appended Input-->
 						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Prenom
+							<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Email
 								:</label>
 							<div class="col-md-4 col-xs-4">
 								<div class="input-group">
 									<input id="appendedtext" name="appendedtext"
-										th:field="*{prenom}" class="form-control"
+										th:field="*{email}" class="form-control"
 										placeholder="Veuillez saisir le prénom" type="text"> <span
 										class="input-group-addon">Prenom</span>
-								</div>
-
-							</div>
-						</div>
-						<!-- Appended Input-->
-						<div class="form-group">
-							<label class="col-md-4  col-xs-4 control-label"
-								for="date naissance">Date Naissance : </label>
-							<div class="col-md-4 col-xs-4">
-								<div class="input-group">
-									<input id="date naissance" name="date naissance"
-									  class="form-control"
-									   type="date" th:field="*{dateNaiss}"> <span
-										class="input-group-addon">Date</span>
-								</div>
-
-							</div>
-						</div>
-						<!-- Appended Input-->
-						<div class="form-group">
-							<label class="col-md-4 col-xs-4 control-label" for="email">Email
-								:</label>
-							<div class="col-md-4 col-xs-4">
-								<div class="input-group">
-									<input id="email" name="email" class="form-control"
-										th:field="*{email}" placeholder="exemple@yahoo.fr" type="text">
-										<span class="input-group-addon">Email</span>
 								</div>
 
 							</div>
@@ -165,123 +140,73 @@
 							<label class="col-md-4 col-xs-4 control-label" for="Valider"></label>
 							<div class="col-md-8 col-xs-8">
 								<button id="Valider" name="Valider" class="btn btn-success">Valider</button>
-								<button type="reset" class="btn btn-danger" onclick="annuler()">Annuler</button>
+								<a type="reset" class="btn btn-danger" th:href="@{/enseignant/liste}|">Annuler</a>
 							</div>
 						</div>
 
 					</fieldset>
 				</form>
+
 			</div>
 		</div>
 
 
-		<!-- la liste des element -->
+	</div>
+
+
+	<div style="margin-top: 100px" class="footer">
+		<footer class="footer-bs">
 		<div class="row">
-			<div style="height: 10px; background: white"></div>
-			<div
-				class="col-md-1 col-sm-1 col-lg-1 col-xs-1 col-md-push-11 col-lg-push-11">
-				<a class="btn icon-btn btn-success add" href="#" onclick="ajout()">
-					<span
-					class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
-					Add
-				</a>
-			</div>
-		</div>
-		<div style="height: 30px; background: white"></div>
-		<div class="col-md-12 col-lg-12 col-sm-12 well" id="liste">
-			<div class="col-md-push-2 col-md-8 col-lg-push-2 col-lg-8"
-				>
-				<table id="example" class="table table-striped table-bordered"
-					style="width: 100%">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Enseignant</th>
-							<th>Module</th>
-							<th>Note</th>
-							<th>Mention</th>
-							<th>Promotion</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="ap : ${lesapprenants}">
-							<td th:text="${ap.matricule}"></td>
-							<td th:text="${ap.nom}"></td>
-							<td th:text="${ap.prenom}"></td>
-							<td th:text="${ap.tel}"></td>
-							<td th:text="${ap.dateNaiss}"></td>
-							<td th:text="${ap.email}"></td>
-							<td class="text-center">
-								<a th:href="@{/apprenant/detail(id=${ap.id})}" class="btn btn-success btn-xs">
-									<span class="glyphicon glyphicon-eye-open"></span>
-								</a>
-								<a th:href="@{/apprenant/edit(id=${ap.id})}" class="btn btn-warning btn-xs">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</a>
-								<a th:href="@{/apprenant/remove(id=${ap.id})}"  onclick="return confirm('etes vous sur de vouloir supprimer cette selection ?')" class="btn btn-danger btn-xs">
-									<span 
-									 class="glyphicon glyphicon-remove-sign"></span>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div style="margin-top: 400px" class="footer">
-			<footer class="footer-bs">
-			<div class="row">
-				<div class="col-md-3 footer-ns animated fadeInRight">
-					<p>
-						<div class="input-group">
-							<input type="text" class="form-control"
-								placeholder="Search for..."> <span
-								class="input-group-btn">
-									<button class="btn btn-default" type="button">
-										<span class="glyphicon glyphicon-envelope"></span>
-									</button>
-							</span>
-						</div>
-						<!-- /input-group -->
-					</p>
-				</div>
-				<div class="col-md-4 footer-nav animated fadeInUp">
-					<h4>Menu —</h4>
-					<div class="col-md-6">
-						<ul class="pages">
-							<li><a href="#">Enseignants</a></li>
-							<li><a href="#">Apprenants</a></li>
-							<li><a href="#">Modules</a></li>
-						</ul>
+			<div class="col-md-3 footer-ns animated fadeInRight">
+				<p>
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for..."> <span
+							class="input-group-btn">
+								<button class="btn btn-default" type="button">
+									<span class="glyphicon glyphicon-envelope"></span>
+								</button>
+						</span>
 					</div>
-					<div class="col-md-6">
-						<ul class="pages">
-							<li><a href="#">Promotions</a></li>
-							<li><a href="#">Evaluations</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-2 footer-social animated fadeInDown">
-					<h4>Follow Us</h4>
-					<ul>
-						<li><a href="#">Facebook</a></li>
-						<li><a href="#">Twitter</a></li>
-						<li><a href="#">Instagram</a></li>
-						<li><a href="#">RSS</a></li>
+					<!-- /input-group -->
+				</p>
+			</div>
+			<div class="col-md-4 footer-nav animated fadeInUp">
+				<h4>Menu —</h4>
+				<div class="col-md-6">
+					<ul class="pages">
+						<li><a href="#">Enseignants</a></li>
+						<li><a href="#">Apprenants</a></li>
+						<li><a href="#">Modules</a></li>
 					</ul>
 				</div>
-				<div class="col-md-3 footer-brand animated fadeInLeft">
-					<h2>
-						<img src="/images/logoEcole.png" class="img-circle"
-							alt="Image logo" width="35%" style="margin-top: -1.5%" />
-					</h2>
-					<p>Devise: "Des ténèbres vers la lumière"</p>
-					<p>Bakk: Génn Ci lëndëm tàbbi Ci leer</p>
+				<div class="col-md-6">
+					<ul class="pages">
+						<li><a href="#">Promotions</a></li>
+						<li><a href="#">Evaluations</a></li>
+					</ul>
 				</div>
 			</div>
-			</footer>
+			<div class="col-md-2 footer-social animated fadeInDown">
+				<h4>Follow Us</h4>
+				<ul>
+					<li><a href="#">Facebook</a></li>
+					<li><a href="#">Twitter</a></li>
+					<li><a href="#">Instagram</a></li>
+					<li><a href="#">RSS</a></li>
+				</ul>
+			</div>
+			<div class="col-md-3 footer-brand animated fadeInLeft">
+				<h2>
+					<img src="/images/logoEcole.png" class="img-circle"
+						alt="Image logo" width="35%" style="margin-top: -1.5%" />
+				</h2>
+				<p>Devise: "Des ténèbres vers la lumière"</p>
+				<p>Bakk: Génn Ci lëndëm tàbbi Ci leer</p>
+			</div>
 		</div>
+		</footer>
+	</div>
 	</div>
 	<script src="/bootstrap/js/jquery-3.3.1.js"></script>
 	<script src="/bootstrap/js/bootstrap.js"></script>
@@ -318,4 +243,3 @@
   </script>
 </body>
 </html>
-

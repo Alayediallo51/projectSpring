@@ -1,17 +1,15 @@
-
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>School'Udb</title>
+<title>Insert title here</title>
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="/bootstrap/css/dataTables.bootstrap.min.css" />
 <link rel="stylesheet" href="/css/styleNavbar.css" />
 </head>
-
 <body>
 	<div class="container-fluid"
 		style="padding-right: 0px; padding-left: 0px; overflow: hidden">
@@ -38,11 +36,11 @@
 				<li><a th:href="@{/enseignant/liste}">Enseignants <span
 						class="sr-only">(current)</span>
 				</a></li>
-				<li><a th:href="@{/apprenant/liste}">Apprenants </a></li>
+				<li class="active"><a th:href="@{/apprenant/liste}">Apprenants
+				</a></li>
 				<li><a th:href="@{/module/liste}">Modules </a></li>
 				<li><a th:href="@{/promo/liste}">Promotions </a></li>
-				<li class="active"><a th:href="@{/evaluation/liste}">Evaluations
-				</a></li>
+				<li><a th:href="@{/evaluation/liste}">Evaluations </a></li>
 
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
@@ -63,139 +61,124 @@
 			</form>
 		</div>
 		</nav>
+		
 
-		<!-- 		ajout delement -->
-		<div class="row AjoutEnseignant" style="display: none;">
-			<div
-				class="col-md-push-3 col-sm-3 col-xs-3 col-lg-push-3 col-lg-6 col-xs-6 col-md-6 col-sm-6 well"
-				style="margin-top: 4%">
-				<form class="form-horizontal" method="POST"
-					th:action="@{/evaluation/add}" th:object="${DonneEvaluation}">
-					<fieldset>
-
-						<!-- Form Name -->
-						<legend>Form Name</legend>
-
-						<!-- Text input-->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="textinput">Note</label>
-							<div class="col-md-5">
-								<input id="textinput" name="textinput" type="text"
-									placeholder="17" class="form-control input-md" th:field="*{note}">
-									<input type="hidden" name="idMed" th:field="*{id}" />
-							</div>
-						</div>
-
-						<!-- Select Basic -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="selectbasic">Modules</label>
-							<div class="col-md-5">
-								<select id="selectbasic" name="selectbasic" class="form-control" th:field="*{module}">
-									<option value="">selectionnez</option>
-									<option th:each="m:${lesModules}" th:value="${m.id}"
-										th:text="${m.nomModule}"></option>
-								</select>
-							</div>
-						</div>
-
-						<!-- Select Basic -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="selectbasic">Apprenant</label>
-							<div class="col-md-5">
-								<select id="selectbasic" name="selectbasic" class="form-control" th:field="*{apprenant}">
-									<option value="1">Selectionnez</option>
-									<option th:each="a:${apprenants}" th:value="${a.id}"
-										th:text="${a.prenom +' '+a.nom} "></option>
-								</select>
-							</div>
-						</div>
-
-						<!-- Select Basic -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="selectbasic">Promotion</label>
-							<div class="col-md-5">
-								<select id="selectbasic" name="selectbasic" class="form-control" th:field="*{promo}">
-									<option value="1">Selectionnez</option>
-									<option  th:each="p:${promos}" th:value="${p.id}"
-										th:text="${p.promo}"></option>
-								</select>
-							</div>
-						</div>
-
-						<!-- Button (Double) -->
-						<div class="form-group">
-							<label class="col-md-4 control-label" for="button1id"></label>
-							<div class="col-md-8">
-								<button type="submit" class="btn btn-success">Valider</button>
-								<button class="btn btn-danger" type="button" onclick="annuler()">Annuler</button>
-							</div>
-						</div>
-
-					</fieldset>
-				</form>
-
-			</div>
-		</div>
-
-
-		<!-- la liste des element -->
-		<div class="col-push-lg-12 text-center titre">
+		<div class="col-push-lg-12 text-center ">
 			<h1>
-				<u>Gestion Des Modules </u>
+				<u>Gestion Des Apprenants </u>
 			</h1>
 		</div>
-		<div class="row">
-			<div style="height: 10px; background: white"></div>
+		<!-- 		ajout delement -->
+		<div class="row AjoutEnseignant">
 			<div
-				class="col-md-1 col-sm-1 col-lg-1 col-xs-1 col-md-push-11 col-lg-push-11">
-				<a class="btn icon-btn btn-success add" onclick="ajout()">
-					<span
-					class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
-					Add
-				</a>
+				class="col-md-push-1 col-sm-1 col-xs-1 col-lg-push-1 col-lg-10 col-xs-10 col-md-10 col-sm-10 well"
+				style="margin-top: 4%">
+							<form class="form-horizontal" th:object="${apprenant}" method="post"
+				th:action="@{/apprenant/add}">
+				<fieldset>
+					<!-- Form Name -->
+					<legend class="text-center">MODIFIER</legend>
+					<!-- Appended Input-->
+					<div class="form-group">
+						<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Matricule
+							:</label>
+						<div class="col-md-4 col-xs-4">
+							<div class="input-group">
+								<input id="appendedtext" name="appendedtext"
+									class="form-control" placeholder="M2INFO01"
+									th:field="*{matricule}" type="text"> <span
+									class="input-group-addon">Matricule</span>
+							</div>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Nom
+							:</label>
+						<div class="col-md-4 col-xs-4">
+							<div class="input-group">
+								<input id="appendedtext" name="appendedtext"
+									class="form-control" placeholder="Veuillez saisir le nom"
+									th:field="*{nom}" type="text"> <input type="hidden"
+									name="idMed" th:field="*{id}" /> <span
+									class="input-group-addon">Nom</span>
+							</div>
+
+						</div>
+					</div>
+					<!-- Appended Input-->
+					<div class="form-group">
+						<label class="col-md-4 col-xs-4 control-label" for="appendedtext">Prenom
+							:</label>
+						<div class="col-md-4 col-xs-4">
+							<div class="input-group">
+								<input id="appendedtext" name="appendedtext"
+									th:field="*{prenom}" class="form-control"
+									placeholder="Veuillez saisir le prénom" type="text"> <span
+									class="input-group-addon">Prenom</span>
+							</div>
+
+						</div>
+					</div>
+					<!-- Appended Input-->
+					<div class="form-group">
+						<label class="col-md-4  col-xs-4 control-label"
+							for="date naissance">Date Naissance : </label>
+						<div class="col-md-4 col-xs-4">
+							<div class="input-group">
+								<input id="date naissance" name="date naissance"
+									class="form-control" type="date" th:field="*{dateNaiss}">
+									<span class="input-group-addon">Date</span>
+							</div>
+
+						</div>
+					</div>
+					<!-- Appended Input-->
+					<div class="form-group">
+						<label class="col-md-4 col-xs-4 control-label" for="email">Email
+							:</label>
+						<div class="col-md-4 col-xs-4">
+							<div class="input-group">
+								<input id="email" name="email" class="form-control"
+									th:field="*{email}" placeholder="exemple@yahoo.fr" type="text">
+									<span class="input-group-addon">Email</span>
+							</div>
+
+						</div>
+					</div>
+					<!-- Appended Input-->
+					<div class="form-group">
+						<label class="col-md-4 col-xs-4 control-label" for="tel">Tel
+							:</label>
+						<div class="col-md-4 col-xs-4">
+							<div class="input-group">
+								<input id="tel" name="tel" class="form-control"
+									th:field="*{tel}" placeholder="771245212" type="text">
+									<span class="input-group-addon">Tel</span>
+							</div>
+
+						</div>
+					</div>
+					<!-- Button (Double) -->
+					<div class="form-group">
+						<label class="col-md-4 col-xs-4 control-label" for="Valider"></label>
+						<div class="col-md-8 col-xs-8">
+							<button id="Valider" name="Valider" class="btn btn-success">Valider</button>
+							<a th:href="@{/apprenant/liste}" class="btn btn-danger" >Annuler</a>
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+			
 			</div>
 		</div>
-		<div style="height: 30px; background: white"></div>
-		<div class="col-md-12 col-lg-12 col-sm-12 well" id="liste">
-			<div class="col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
-				<table id="example" class="table table-striped table-bordered"
-					style="width: 100%">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Apprenant</th>
-							<th>Enseignant</th>
-							<th>Module</th>
-							<th>Note</th>
-							<th>Mention</th>
-							<th>Promotion</th>
-							<th>Action</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="e : ${lesevaluations}">
-							<td th:text="${e.id}"></td>
-							<td th:text="${e.apprenant.nom +' '+ e.apprenant.prenom }"></td>
-							<td th:text="Mr +' '+${e.module.enseignant.nomComplet}"></td>
-							<td th:text="${e.module.nomModule}"></td>
-							<td th:text="${e.note}"></td>
-							<td th:text="${e.mention}"></td>
-							<td th:text="${e.promo.promo}"></td>
-							<td class="text-center">
-								<a th:href="@{/evaluation/edit(id=${e.id})}" class="btn btn-warning btn-xs">
-									<span class="glyphicon glyphicon-pencil"></span>
-								</a>
-								<a th:href="@{/evaluation/remove(id=${e.id})}"  onclick="return confirm('etes vous sur de vouloir supprimer cette selection ?')" class="btn btn-danger btn-xs">
-									<span 
-									 class="glyphicon glyphicon-remove-sign"></span>
-								</a>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+
+
 		</div>
-		<div style="margin-top: 400px" class="footer">
+
+
+		<div style="margin-top: 100px" class="footer">
 			<footer class="footer-bs">
 			<div class="row">
 				<div class="col-md-3 footer-ns animated fadeInRight">
@@ -209,7 +192,7 @@
 									</button>
 							</span>
 						</div>
-<!-- 						/input-group -->
+						<!-- /input-group -->
 					</p>
 				</div>
 				<div class="col-md-4 footer-nav animated fadeInUp">
@@ -270,7 +253,7 @@
    	  $('.add').hide('slow');
    	  $('.AjoutEnseignant').show('slow');
    	  $('.titre').hide('slow');
-      $('.footer').css('margin-top','100px');
+   	  $('.footer').css('margin-top','100px');
     }
 
    function annuler(){
@@ -284,5 +267,3 @@
   </script>
 </body>
 </html>
-
-

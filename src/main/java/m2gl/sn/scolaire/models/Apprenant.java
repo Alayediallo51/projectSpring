@@ -27,12 +27,19 @@ public class Apprenant {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateNaiss;
 	
+	private String matricule;
 	private String nom;
 	private String prenom;
 	private String email;
 	private String tel;
 	public int getId() {
 		return id;
+	}
+	public String getMatricule() {
+		return matricule;
+	}
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
 	public String getEmail() {
 		return email;

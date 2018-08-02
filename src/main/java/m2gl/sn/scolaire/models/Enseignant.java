@@ -10,6 +10,13 @@ public class Enseignant {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	private String codeProf;
+	public String getCodeProf() {
+		return codeProf;
+	}
+	public void setCodeProf(String codeProf) {
+		this.codeProf = codeProf;
+	}
 	private String nomComplet;
 	private String email;
 	public int getId() {
